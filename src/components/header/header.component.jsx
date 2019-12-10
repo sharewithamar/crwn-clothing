@@ -5,6 +5,10 @@ import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
+import {createStructuredSelector} from 'reselect';
+import {selectCurrentUser} from '../../redux/user/user.selector';
+import {selectCartHidden} from '../../redux/cart/cart.selectors';
+
 import './header.styles.scss';
 
 const Header = ({ currentUser, hidden }) => (
@@ -39,9 +43,10 @@ const Header = ({ currentUser, hidden }) => (
 );
 
 //Better destructing way to destructure nested values
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden
+//createStructuredSelector will automatically pass top level state to each selector
+const mapStateToProps = createStructuredSelector ({
+  currentUser: selectCurrentUser,
+  hidden : selectCartHidden
 });
 
 /* const mapStateToProps = state => ({
