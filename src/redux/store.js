@@ -6,6 +6,11 @@ import rootReducer from './root-reducer';
 
 const middlewares = [logger];
 
+if (process.env.NODE_ENV === 'development') {
+  const middlewares = [logger];
+  middlewares.push(logger);
+}
+
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 export const persistor = persistStore(store);
